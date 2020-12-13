@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title> Julklappsspel </title>
+    <meta http-equiv="X-UA-compatible" content = "IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Online version of family christmas gift game" />
+    <meta name="author" content ="Hugo Linder" />
+    <link rel="stylesheet" href="style.css">
+    <script src="/script.js" defer></script>
+  </head>
+  <body>
+    <div class="game" id="gameContainer"></div>
+    <button id="count">Count</button>
+    <script>
+      const button = document.getElementById("count")
+      button.addEventListener('click', event => {
+        console.log("Getting count from server.")
+        fetch('/count').then(response => {
+          return response.text()
+        }).then(json => {
+          console.log(json)
+        })
+      })
+    </script>
+  </body>
+</html>
