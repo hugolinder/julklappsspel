@@ -12,7 +12,8 @@
   </head>
   <body>
     <div class="game" id="gameContainer"></div>
-    <button id="count">Count</button>
+    <button id="count">Add one</button>
+    <div id="countDisplay"></div>
     <script>
       const button = document.getElementById("count")
       button.addEventListener('click', event => {
@@ -21,6 +22,7 @@
           return response.text()
         }).then(json => {
           console.log(json)
+          document.getElementById("countDisplay").textContent = json
         })
       })
     </script>

@@ -21,12 +21,11 @@ app.post('/test', function (request, response) {
 // count a number, incremented by all clients
 let count = 0
 app.get('/count', function (request, response) {
-  const message = `I am counting ${count}`
+  count = count + 1
+  const message = `The server is counting, the button  has been clicked ${count} times across all clients.`
   console.log('Responding')
   console.log(message)
-
   response.json(message)
-  count = count + 1
 })
 
 // save to database
