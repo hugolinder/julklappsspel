@@ -11,20 +11,7 @@
     <script src="/script.js" defer></script>
   </head>
   <body>
-    <div class="game" id="gameContainer"></div>
-    <button id="count">Add one</button>
-    <div id="countDisplay"></div>
-    <script>
-      const button = document.getElementById("count")
-      button.addEventListener('click', event => {
-        console.log("Getting count from server.")
-        fetch('/count').then(response => {
-          return response.text()
-        }).then(json => {
-          console.log(json)
-          document.getElementById("countDisplay").textContent = json
-        })
-      })
-    </script>
+    <button id="rollDice">Roll Dice</button>
+    <script src="index.js"></script>
   </body>
 </html>
