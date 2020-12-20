@@ -11,7 +11,25 @@
     <script src="/script.js" defer></script>
   </head>
   <body>
-    <button id="rollDice">Roll Dice</button>
+    <label for 'interval'>Turn interval [ms]:</label>
+    <input type='number' id='interval' name="interval" min="1" max="60*1000"value="1000">
+    <button id="submitInterval">Submit interval</button>
+    <br>
+    <button id="diceBtn">Roll the Dice</button>
+    <label for="diceBtn" id="diceLabel"></label>
+    <br>
+    <h1>Model of the game</h1>
+    <p id='modelText'></p>
+    <h1>Controller commands</h2>
+    <p id="commandText"></p>
+    <label for="name">Player name:</label>
+    <input type='text' id="name">
+    <button id='playerBtn'>Create player</button>
+    <br>
+    <label for "gift">Gift label:</label>
+    <input type='text' id='gift'>
+    <button id='giftBtn'>Add gift</button>
+    <br>
     <script src="index.js"></script>
   </body>
 </html>
