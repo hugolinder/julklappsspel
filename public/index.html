@@ -8,7 +8,6 @@
     <meta name="description" content="Online version of family christmas gift game" />
     <meta name="author" content ="Hugo Linder" />
     <link rel="stylesheet" href="style.css">
-    <script src="/script.js" defer></script>
   </head>
   <body>
     <label for 'interval'>Turn interval [ms]:</label>
@@ -18,10 +17,6 @@
     <button id="diceBtn">Roll the Dice</button>
     <label for="diceBtn" id="diceLabel"></label>
     <br>
-    <h1>Model of the game</h1>
-    <p id='modelText'></p>
-    <h1>Controller commands</h2>
-    <p id="commandText"></p>
     <label for="name">Player name:</label>
     <input type='text' id="name">
     <button id='playerBtn'>Create player</button>
@@ -30,16 +25,7 @@
     <input type='text' id='gift'>
     <button id='giftBtn'>Add gift</button>
     <br>
-    <script src="index.js"></script>
-
-      <!-- Draggable DIV -->
-  <div id="mydiv">
-    <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-    <div id="mydivheader">Click here to move</div>
-    <p>Move</p>
-    <p>this</p>
-    <p>DIV</p>
-  </div>
-  <script src="drag.js"></script>
+  <div id="tokenOrigin">Token start here</div>
+  <script src="index.js"></script>
   </body>
 </html>

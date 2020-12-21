@@ -13,8 +13,7 @@ app.use(express.json({ limit: '1mb' })) // understand incoming data (with 'appli
 var model = {
   receivedCommands: [],
   diceValues: [],
-  players: {},
-  gifts: []
+  tokens: []
 }
 app.get('/model', (req, res) => {
   console.log('serving the model to the client')
@@ -30,9 +29,12 @@ app.post('/controller', (req, res) => {
     var diceValue = Math.ceil(Math.random() * 6)
     model.diceValues.push(diceValue)
   }
-  if (command.playerName) {
-
-  }
+  command.tokens.forEach(token => {
+    console.log('adding new token')
+    token.id = `token${model.tokens.length}`
+    model.tokens.push(token)
+  })
   model.receivedCommands.push(command)
-  res.send('model updated')
+  // give feedback
+  res.json({ model: model })
 })
