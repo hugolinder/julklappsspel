@@ -1,7 +1,7 @@
 .player {
   background-color: red;
-  border: 0.1em solid green;
-  border-radius: 2em;
+  border: 0.1vmin solid green;
+  border-radius: 4vmin;
   color: white;
   padding: 1em;
 }

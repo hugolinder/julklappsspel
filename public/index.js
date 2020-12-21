@@ -15,9 +15,12 @@ function commandServer () {
     .then(response => response.json())
     .then(json => {
       // update representation of model
-      json.model.tokens.forEach(token => {
-        if (!document.getElementById(token.id)) {
-          createToken(token)
+      json.model.tokens.forEach(template => {
+        var token = document.getElementById(template.id)
+        if (!token) {
+          createToken(template)
+        } else {
+          // update position
         }
       })
       document.getElementById('diceLabel').textContent = json.model.diceValues.pop()
@@ -79,20 +82,25 @@ function dragElement (elmnt) {
 function createToken (template) {
   console.log('creating token')
   const token = document.createElement('div')
-
+  document.body.appendChild(token)
+  // make it draggable
+  token.style.position = 'absolute'
+  token.style.cursor = 'move'
   /// copy from template, id
   token.id = template.id
   token.textContent = template.textContent
+  var x = template.x * window.innerWidth
+  var y = template.y * window.innerHeight
+  console.log(`token start position = (x,y) = (${x},${y}) [px]`)
+  token.style.left = x + 'px'
+  token.style.top = y + 'px'
   token.classList.add('token')
   template.classList.forEach(x => {
     token.classList.add(x)
   })
-  const origin = document.getElementById('tokenOrigin')
+  // const origin = document.getElementById('tokenOrigin')
+  // document.body.insertBefore(token, origin)
 
-  document.body.insertBefore(token, origin)
-  // make it draggable
-  token.style.position = 'absolute'
-  token.style.cursor = 'move'
   dragElement(token)
 }
 

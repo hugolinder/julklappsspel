@@ -32,6 +32,11 @@ app.post('/controller', (req, res) => {
   command.tokens.forEach(token => {
     console.log('adding new token')
     token.id = `token${model.tokens.length}`
+    // randomize starting position
+    // relative unit, percent of width/height
+    token.x = Math.random()
+    token.y = Math.random()
+    console.log(`randomized position (x,y)=(${token.x}, ${token.y})`)
     model.tokens.push(token)
   })
   model.receivedCommands.push(command)
