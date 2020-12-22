@@ -120,10 +120,10 @@ function createToken (template) {
 
 var playerBtn = document.getElementById('playerBtn')
 playerBtn.addEventListener('click', (event) => {
-  console.log('adding player')
   // in order to have consistent ID, the creation occurs in view
   var name = document.getElementById('name').value
-  playerBtn.textContent = `${name}...`
+  console.log('adding player ' + name)
+  playerBtn.textContent = name + '...'
   command.tokens.push({
     textContent: name,
     classList: ['player']
@@ -132,8 +132,13 @@ playerBtn.addEventListener('click', (event) => {
 
 var giftBtn = document.getElementById('giftBtn')
 giftBtn.addEventListener('click', () => {
-  command.giftLabel = document.getElementById('gift').value
-  giftBtn.textContent = 'Packaging...'
+  console.log('adding gift')
+  var label = document.getElementById('gift').value
+  command.tokens.push({
+    textContent: label,
+    classList: ['gift']
+  })
+  giftBtn.textContent = label + '...'
 })
 
 // view
@@ -143,13 +148,39 @@ function updateView () {
   diceBtn.textContent = 'Roll the Dice'
   playerBtn.textContent = 'Create player'
   giftBtn.textContent = 'Add gift'
+  /*
+  var gifts = document.getElementsByClassName('gift')
+  for (var i = 0; i < gifts.length; i++) {
+    // generate a random color
+    const hue = Math.random() * 2
+    const channels = [0, 1, 2]
+    var distances = channels.map(x => Math.abs(x - hue) / 2)
+    // distances = distances.map(dist => Math.min(dist, (2 + 1) / 2 - dist)) // cyclic to not favor the green middle channel
+    // distances[1] = distances[1] * 2 // middle channel green has max distance 0.5, whilst others have max distance 1 // this creates a lot of purple
+    console.log('color distances:')
+    console.log(distances)
+    const light = 3 * 255
+    const weights = [1, 1, 1]
+    const maxWeight = weights.reduce((a, b) => Math.max(a, b), 0)
+    const values = channels.map(x => Math.min(255, Math.floor((1 - distances[x]) * light * weights[x] / maxWeight)))
+    const randomColorNumber = values[0] * 255 * 255 + values[1] * 255 + values[2]
+    const randomColor = randomColorNumber.toString(16)
+    console.log('random color ' + randomColor + ' for gift ' + gifts[i].id)
+    gifts[i].style.backgroundColor = '#' + randomColor
+    // const complement = 255 * 255 * 255 - 1
+    // gifts[i].style.color = '#' + complement.toString(16)
+  }
+  */ 
 }
 // game loop
-var timerId
+var timerId = setInterval(function () {
+  commandServer()
+  updateView()
+}, document.getElementById('interval').value)
+
+// adjust speed
 document.getElementById('submitInterval').addEventListener('click', () => {
-  if (timerId) {
-    clearInterval(timerId)
-  }
+  clearInterval(timerId)
   timerId = setInterval(function () {
     commandServer()
     updateView()

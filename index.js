@@ -11,7 +11,6 @@ app.use(express.json({ limit: '1mb' })) // understand incoming data (with 'appli
 // Using Model-View-Controller
 // The view is client-side, and requires access to the model
 var model = {
-  receivedCommands: [],
   diceValues: [],
   tokens: []
 }
@@ -36,7 +35,7 @@ app.post('/controller', (req, res) => {
       // randomize starting position,  % of window dimensions
       token.x = Math.random() * 100
       token.y = Math.random() * 100
-      var border = 10
+      var border = 25
       // move away from edges
       token.x = Math.min(Math.max(token.x, border), 100 - border)
       token.y = Math.min(Math.max(token.y, border), 100 - border)
@@ -52,7 +51,7 @@ app.post('/controller', (req, res) => {
       model.tokens[tokenIndex].y = token.y
     }
   })
-  model.receivedCommands.push(command)
+  // model.receivedCommands.push(command
   // give feedback
   res.json({ model: model })
 })
