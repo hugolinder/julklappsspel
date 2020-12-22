@@ -66,7 +66,7 @@ function dragElement (elmnt) {
     } else {
       // touches
       console.log('------------------------touch')
-      aler('length of touches=' + e.touches.length)
+      window.alert('length of touches=' + e.touches.length)
       preX = e.touches[0].clientX
       preY = e.touches[0].clientY
     }
@@ -90,7 +90,7 @@ function dragElement (elmnt) {
       } else {
         // touch move - assuming a single touch point
         console.log('------------------------touch')
-        aler('length of changed touches=' + e.changedTouches.length)
+        window.alert('length of changed touches=' + e.changedTouches.length)
         newX = e.changedTouches[0].clientX
         newY = e.changedTouches[0].clientY
       }
