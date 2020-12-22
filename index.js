@@ -47,6 +47,7 @@ app.post('/controller', (req, res) => {
     } else { // changes to existing token
       console.log(`updating position of ${token.id} to (x,y)=(${token.x}, ${token.y})`)
       var tokenIndex = model.tokens.findIndex(element => element.id === token.id)
+      // check that the new position is in range 0-100 %
       model.tokens[tokenIndex].x = token.x
       model.tokens[tokenIndex].y = token.y
     }

@@ -58,7 +58,8 @@ function dragElement (elmnt) {
     e.preventDefault()
     elmnt.isMoving = true
     // get the mouse cursor/ touch position at startup:
-    if (e.clientX) {
+    console.log('event type ' + e.type)
+    if (e.type === 'mousedown') {
       // mouse
       preX = e.clientX
       preY = e.clientY
@@ -80,7 +81,8 @@ function dragElement (elmnt) {
     e.preventDefault()
     var newX, newY
     if (elmnt.isMoving) {
-      if (e.clientX) {
+      console.log('event type ' + e.type)
+      if (e.type === 'mousemove') {
         // mouse event
         newX = e.clientX
         newY = e.clientY
@@ -91,6 +93,11 @@ function dragElement (elmnt) {
         newY = e.changedTouches[0].clientY
       }
     }
+
+    // check that newX, newY are in bounds
+    newX = Math.max(0, Math.min(newX, window.innerWidth))
+    newY = Math.max(0, Math.min(newY, window.innerHeight))
+
     // calculate the new cursor position:
     dX = preX - newX
     dY = preY - newY
@@ -108,8 +115,8 @@ function dragElement (elmnt) {
     // stop moving when mouse button is released:
     document.onmouseup = null
     document.onmousemove = null
-    document.ontouchmove = null
     document.ontouchend = null
+    document.ontouchmove = null
     elmnt.isMoving = false
     // record the updated position as a command
     command.tokens.push({
