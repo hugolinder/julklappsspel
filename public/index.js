@@ -18,9 +18,13 @@ function commandServer () {
       json.model.tokens.forEach(template => {
         var token = document.getElementById(template.id)
         if (!token) {
-          createToken(template)
-        } else {
-          // update position
+          token = createToken(template)
+        }
+        // update position
+        if (!token.isDragged) {
+          console.log(`updating position of ${template.id} to (x,y)=(${template.x}, ${template.y})`)
+          token.style.left = template.x
+          token.style.top = template.y
         }
       })
       document.getElementById('diceLabel').textContent = json.model.diceValues.pop()
@@ -39,6 +43,7 @@ diceBtn.addEventListener('click', () => {
 // copy from w3schools
 function dragElement (elmnt) {
   var preX, preY, dX, dY
+  elmnt.isDragged = false
   if (document.getElementById(elmnt.id + 'header')) {
     // if present, the header is where you move the DIV from:
     document.getElementById(elmnt.id + 'header').onmousedown = dragMouseDown
@@ -50,6 +55,7 @@ function dragElement (elmnt) {
   function dragMouseDown (e) {
     e = e || window.event
     e.preventDefault()
+    elmnt.isDragged = true
     // get the mouse cursor position at startup:
     preX = e.clientX
     preY = e.clientY
@@ -67,15 +73,22 @@ function dragElement (elmnt) {
     preX = e.clientX
     preY = e.clientY
     // set the element's new position:
-    elmnt.style.left = (elmnt.offsetLeft - dX) + 'px'
-    elmnt.style.top = (elmnt.offsetTop - dY) + 'px'
+    // changed from pixels to percent of window dimensions
+    elmnt.style.left = (elmnt.offsetLeft - dX) * 100 / window.innerWidth + 'vw'
+    elmnt.style.top = (elmnt.offsetTop - dY) * 100 / window.innerHeight + 'vh'
   }
 
   function closeDragElement () {
     // stop moving when mouse button is released:
     document.onmouseup = null
     document.onmousemove = null
-    command.drag = { id: elmnt.id, left: elmnt.style.left, top: elmnt.style.top }
+    elmnt.isDragged = false
+    // record the updated position as a command
+    command.tokens.push({
+      id: elmnt.id,
+      x: elmnt.style.left,
+      y: elmnt.style.top
+    })
   }
 }
 
@@ -89,11 +102,11 @@ function createToken (template) {
   /// copy from template, id
   token.id = template.id
   token.textContent = template.textContent
-  var x = template.x * window.innerWidth
-  var y = template.y * window.innerHeight
-  console.log(`token start position = (x,y) = (${x},${y}) [px]`)
-  token.style.left = x + 'px'
-  token.style.top = y + 'px'
+  var x = template.x
+  var y = template.y
+  console.log(`token start position = (x,y) = (${x},${y}) `)
+  token.style.left = x
+  token.style.top = y
   token.classList.add('token')
   template.classList.forEach(x => {
     token.classList.add(x)
@@ -102,6 +115,7 @@ function createToken (template) {
   // document.body.insertBefore(token, origin)
 
   dragElement(token)
+  return token
 }
 
 var playerBtn = document.getElementById('playerBtn')
