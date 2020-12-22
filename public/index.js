@@ -2,8 +2,10 @@
 var command = {
   tokens: []
 }
+var startTime
 function commandServer () {
   console.log('sending command to server')
+  console.log(command)
   const options = {
     method: 'POST',
     headers: {
@@ -27,15 +29,18 @@ function commandServer () {
           token.style.top = template.y
         }
       })
-      document.getElementById('diceLabel').textContent = json.model.diceValues.pop()
+      document.getElementById('diceDisplay').textContent = json.model.diceValues.pop()
+      startTime = json.model.time
     })
     .catch(err => console.error(err))
-  command = {} // reset
+  // reset command
+  command = {}
   command.tokens = []
 }
 
 var diceBtn = document.getElementById('diceBtn')
 diceBtn.addEventListener('click', () => {
+  console.log('rolling the dice')
   command.rollDice = true
   diceBtn.textContent = 'Rolling...'
 })
@@ -109,7 +114,7 @@ function dragElement (elmnt) {
     if (e.type === 'mousemove') {
       console.log(message)
     } else {
-      document.getElementById('myConsole').textContent = message
+      // document.getElementById('myConsole').textContent = message
     }
 
     // set the element's new position:
@@ -183,6 +188,13 @@ giftBtn.addEventListener('click', () => {
   giftBtn.textContent = label + '...'
 })
 
+var timeBtn = document.getElementById('timeBtn')
+timeBtn.addEventListener('click', () => {
+  console.log('starting a timer')
+  command.time = true
+  timeBtn.textContent = 'Time...'
+})
+
 // view
 function updateView () {
   console.log('updating view')
@@ -190,6 +202,16 @@ function updateView () {
   diceBtn.textContent = 'Roll the Dice'
   playerBtn.textContent = 'Create player'
   giftBtn.textContent = 'Add gift'
+  timeBtn.textContent = 'Start timer'
+
+  // display current time in minutes: seconds
+  if (startTime) {
+    var now = new Date().getTime()
+    var timeDiff = (now - startTime) / 1000 // seconds
+    var timeStr = Math.floor(timeDiff / 60) + ':' + Math.floor((timeDiff % 60))
+    console.log('time string min:sec = ' + timeStr)
+    document.getElementById('timeDisplay').textContent = timeStr
+  }
   /*
   var gifts = document.getElementsByClassName('gift')
   for (var i = 0; i < gifts.length; i++) {

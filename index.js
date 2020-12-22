@@ -12,7 +12,8 @@ app.use(express.json({ limit: '1mb' })) // understand incoming data (with 'appli
 // The view is client-side, and requires access to the model
 var model = {
   diceValues: [],
-  tokens: []
+  tokens: [],
+  time: new Date().getTime()
 }
 app.get('/model', (req, res) => {
   console.log('serving the model to the client')
@@ -25,13 +26,18 @@ app.post('/controller', (req, res) => {
   // update model following command
   console.log('updating model')
   if (command.rollDice) {
+    console.log('rolling dice')
     var diceValue = Math.ceil(Math.random() * 6)
     model.diceValues.push(diceValue)
   }
+  if (command.time) {
+    console.log('restarting time')
+    model.time = new Date().getTime()
+  }
   command.tokens.forEach(token => {
     if (!token.id) { // create a new token
-      console.log('adding new token')
       token.id = `token${model.tokens.length}`
+      console.log('adding new ' + token.id)
       // randomize starting position,  % of window dimensions
       token.x = Math.random() * 100
       token.y = Math.random() * 100
