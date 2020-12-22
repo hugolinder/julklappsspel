@@ -49,10 +49,11 @@ function dragElement (elmnt) {
     document.getElementById(elmnt.id + 'header').onmousedown = dragMouseDown
   } else {
     // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown
+    elmnt.onmousedown = dragStart
+    elmnt.ontouchstart = dragStart
   }
 
-  function dragMouseDown (e) {
+  function dragStart (e) {
     e = e || window.event
     e.preventDefault()
     elmnt.isDragged = true
@@ -60,6 +61,7 @@ function dragElement (elmnt) {
     preX = e.clientX
     preY = e.clientY
     document.onmouseup = closeDragElement
+    document.ontouchend = closeDragElement
     // call a function whenever the cursor moves:
     document.onmousemove = elementDrag
   }
@@ -170,7 +172,7 @@ function updateView () {
     // const complement = 255 * 255 * 255 - 1
     // gifts[i].style.color = '#' + complement.toString(16)
   }
-  */ 
+  */
 }
 // game loop
 var timerId = setInterval(function () {
