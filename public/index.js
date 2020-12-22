@@ -21,7 +21,7 @@ function commandServer () {
           token = createToken(template)
         }
         // update position
-        if (!token.isDragged) {
+        if (!token.isMoving) {
           console.log(`updating position of ${template.id} to (x,y)=(${template.x}, ${template.y})`)
           token.style.left = template.x
           token.style.top = template.y
@@ -43,49 +43,74 @@ diceBtn.addEventListener('click', () => {
 // copy from w3schools
 function dragElement (elmnt) {
   var preX, preY, dX, dY
-  elmnt.isDragged = false
+  elmnt.isMoving = false
   if (document.getElementById(elmnt.id + 'header')) {
     // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + 'header').onmousedown = dragMouseDown
+    document.getElementById(elmnt.id + 'header').onmousedown = pickup
   } else {
     // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragStart
-    elmnt.ontouchstart = dragStart
+    elmnt.ontouchstart = pickup
+    elmnt.onmousedown = pickup
   }
 
-  function dragStart (e) {
+  function pickup (e) {
     e = e || window.event
     e.preventDefault()
-    elmnt.isDragged = true
-    // get the mouse cursor position at startup:
-    preX = e.clientX
-    preY = e.clientY
-    document.onmouseup = closeDragElement
-    document.ontouchend = closeDragElement
+    elmnt.isMoving = true
+    // get the mouse cursor/ touch position at startup:
+    if (e.clientX) {
+      // mouse
+      preX = e.clientX
+      preY = e.clientY
+    } else {
+      // touches
+      console.log('------------------------touch')
+      preX = e.touches[0].clientX
+      preY = e.touches[0].clientY
+    }
+    document.ontouchend = drop
+    document.onmouseup = drop
     // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag
-    document.ontouchmove = elementDrag
+    document.ontouchmove = move
+    document.onmousemove = move
   }
 
-  function elementDrag (e) {
+  function move (e) {
     e = e || window.event
     e.preventDefault()
+    var newX, newY
+    if (elmnt.isMoving) {
+      if (e.clientX) {
+        // mouse event
+        newX = e.clientX
+        newY = e.clientY
+      } else {
+        // touch move - assuming a single touch point
+        console.log('------------------------touch')
+        newX = e.changedTouches[0].clientX
+        newY = e.changedTouches[0].clientY
+      }
+    }
     // calculate the new cursor position:
-    dX = preX - e.clientX
-    dY = preY - e.clientY
-    preX = e.clientX
-    preY = e.clientY
+    dX = preX - newX
+    dY = preY - newY
+    preX = newX
+    preY = newY
+    console.log('preX=' + preX + ', newX=' + newX + ', dX= ' + dX)
+    console.log('preY= ' + preY + ', newY=' + newY + ', dY=' + dY)
     // set the element's new position:
     // changed from pixels to percent of window dimensions
     elmnt.style.left = (elmnt.offsetLeft - dX) * 100 / window.innerWidth + 'vw'
     elmnt.style.top = (elmnt.offsetTop - dY) * 100 / window.innerHeight + 'vh'
   }
 
-  function closeDragElement () {
+  function drop () {
     // stop moving when mouse button is released:
     document.onmouseup = null
     document.onmousemove = null
-    elmnt.isDragged = false
+    document.ontouchmove = null
+    document.ontouchend = null
+    elmnt.isMoving = false
     // record the updated position as a command
     command.tokens.push({
       id: elmnt.id,
