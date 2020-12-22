@@ -66,9 +66,9 @@ function dragElement (elmnt) {
     } else {
       // touches
       console.log('------------------------touch')
-      window.alert('length of touches=' + e.touches.length)
       preX = e.touches[0].clientX
       preY = e.touches[0].clientY
+      // window.alert('preX=' + preX + ', preY=' + preY)
     }
     document.ontouchend = drop
     document.onmouseup = drop
@@ -90,7 +90,7 @@ function dragElement (elmnt) {
       } else {
         // touch move - assuming a single touch point
         console.log('------------------------touch')
-        window.alert('length of changed touches=' + e.changedTouches.length)
+        // window.alert('length of changed touches=' + e.changedTouches.length)
         newX = e.changedTouches[0].clientX
         newY = e.changedTouches[0].clientY
       }
@@ -105,8 +105,13 @@ function dragElement (elmnt) {
     dY = preY - newY
     preX = newX
     preY = newY
-    console.log('preX=' + preX + ', newX=' + newX + ', dX= ' + dX)
-    console.log('preY= ' + preY + ', newY=' + newY + ', dY=' + dY)
+    var message = 'preX=' + preX + ', newX=' + newX + ', dX= ' + dX + ', preY= ' + preY + ', newY=' + newY + ', dY=' + dY
+    if (e.type === 'mousemove') {
+      console.log(message)
+    } else {
+      document.getElementById('myConsole').textContent = message
+    }
+
     // set the element's new position:
     // changed from pixels to percent of window dimensions
     elmnt.style.left = (elmnt.offsetLeft - dX) * 100 / window.innerWidth + 'vw'
