@@ -23,8 +23,6 @@
   },
   "homepage": "https://github.com/hugolinder/julklappsspel#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "nedb": "^1.8.0",
-    "nodemon": "^2.0.6"
+    "express": "^4.17.1"
   }
 }
