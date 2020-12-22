@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+#div1 {
+  width: 350px;
+  height: 70px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+}
+
+#mydiv {
+
+  z-index: 9;
+  background-color: #f1f1f1;
+  text-align: center;
+  border: 1px solid #d3d3d3;
+}
+
+#mydivheader {
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: #2196F3;
+  color: #fff;
+}
+
+#mydiv2 {
+  left: 300;
+  z-index: 9;
+  background-color: #f1f1f1;
+  text-align: center;
+  border: 1px solid #d3d3d3;
+  padding:100px;
+}
+#mydivheader2 {
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: #2196F3;
+  color: #fff;
+}
+.boxy{
+position:absolute;
+}
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js%22%3E</script>
+<script>
+$(document).ready( function(){
+
+    $(".boxy").mousedown( function(eve){
+        var myId = eve.target.id;
+
+       $( document ).mousemove( function( event ) {
+               //alert(myId);
+                 //  $("#" + myId).css({top: event.pageY, left: event.pageX}) ;
+               setPosition(event.pageX, event.pageY, "#"+myId);
+        //xt( "pageX: " + event.pageX + ", pageY: " + event.pageY );
+                                                         });
+
+                              }).mouseup(function(){
+                              $(document).unbind("mousemove");
+
+                              });
+    });
+function setPosition(x, y, id){
+$(id).css({top: y, left: x}) ;
+
+}
+$(document).ready(function(){
+  $("button").click(function(){
+    $("p").hide();
+  });
+});
+</script>
+</head>
+<body>
+
+<p>test</p>
+
+<button>test</button>
+<div id="mydiv" class="boxy">
+  <div id="mydivheader">Click here to move</div>
+  <p>Move</p>
+  <p>this</p>
+  <p>DIV</p>
+</div>
+<div id="mydiv2" class="boxy">
+  <div id="mydivheader2">Click here to move2</div>
+  <p>Move</p>
+  <p>this</p>
+  <p>DIV</p>
+</div>
+
+</body>
+</html>

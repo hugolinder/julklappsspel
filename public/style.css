@@ -1,0 +1,20 @@
+.player {
+  background-color: red;
+  border: 0.3em solid LightGreen;
+  border-radius: 2em;
+  color: white;
+  padding: 1em;
+}
+
+.gift {
+  background-color: white;
+  background-image: linear-gradient(white, skyBlue);
+  border: 0.3em outset crimson;
+  color: black;
+  padding: 0.5em;
+}
+
+.draggable {
+  cursor: move;
+  position: absolute;
+}
