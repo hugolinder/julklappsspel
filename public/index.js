@@ -64,6 +64,7 @@ function dragElement (elmnt) {
     document.ontouchend = closeDragElement
     // call a function whenever the cursor moves:
     document.onmousemove = elementDrag
+    document.ontouchmove = elementDrag
   }
 
   function elementDrag (e) {
