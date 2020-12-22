@@ -97,8 +97,8 @@ function dragElement (elmnt) {
     }
 
     // check that newX, newY are in bounds
-    newX = Math.max(0, Math.min(newX, window.innerWidth))
-    newY = Math.max(0, Math.min(newY, window.innerHeight))
+    newX = Math.max(0, newX)
+    newY = Math.max(0, newY)
 
     // calculate the new cursor position:
     dX = preX - newX
@@ -114,8 +114,8 @@ function dragElement (elmnt) {
 
     // set the element's new position:
     // changed from pixels to percent of window dimensions
-    elmnt.style.left = (elmnt.offsetLeft - dX) * 100 / window.innerWidth + 'vw'
-    elmnt.style.top = (elmnt.offsetTop - dY) * 100 / window.innerHeight + 'vh'
+    elmnt.style.left = (elmnt.offsetLeft - dX) + 'px'
+    elmnt.style.top = (elmnt.offsetTop - dY) + 'px'
   }
 
   function drop () {

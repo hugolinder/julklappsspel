@@ -40,8 +40,8 @@ app.post('/controller', (req, res) => {
       token.x = Math.min(Math.max(token.x, border), 100 - border)
       token.y = Math.min(Math.max(token.y, border), 100 - border)
       // set units, percent of width/height
-      token.x = token.x + 'vw'
-      token.y = token.y + 'vh'
+      token.x = token.x + 'px'
+      token.y = token.y + 'px'
       console.log(`randomized position (x,y)=(${token.x}, ${token.y})`)
       model.tokens.push(token)
     } else { // changes to existing token
