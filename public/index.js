@@ -50,6 +50,8 @@ var diceBtn = document.getElementById('diceBtn')
 diceBtn.addEventListener('click', () => {
   console.log('rolling the dice')
   command.rollDice = true
+  var audio = new Audio('dice.mp3')
+  audio.play()
   diceBtn.textContent = 'Rolling...'
 })
 
