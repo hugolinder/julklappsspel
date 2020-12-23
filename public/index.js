@@ -23,7 +23,13 @@ function commandServer () {
           token = createToken(template)
         }
         // update position
-        if (!token.isMoving) {
+
+        var tokenCommand = command.tokens.find(x => x.id === token.id)
+        var moveIsCommanded = tokenCommand && tokenCommand.x
+        if (moveIsCommanded) {
+          console.log('move command is delayed')
+        }
+        if (!(token.isMoving || moveIsCommanded)) {
           console.log(`updating position of ${template.id} to (x,y)=(${template.x}, ${template.y})`)
           token.style.left = template.x
           token.style.top = template.y
