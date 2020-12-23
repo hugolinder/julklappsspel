@@ -29,7 +29,9 @@ function commandServer () {
           token.style.top = template.y
         }
       })
-      document.getElementById('diceDisplay').textContent = json.model.diceValues.pop()
+      if (json.model.diceValues.length > 0) {
+        document.getElementById('diceDisplay').textContent = 'Dice roll ' + json.model.diceValues.length + ' is ' + json.model.diceValues.pop()
+      }
       startTime = json.model.time
     })
     .catch(err => console.error(err))
@@ -202,14 +204,15 @@ function updateView () {
   diceBtn.textContent = 'Roll the Dice'
   playerBtn.textContent = 'Create player'
   giftBtn.textContent = 'Add gift'
-  timeBtn.textContent = 'Start timer'
+  timeBtn.textContent = 'Restart timer'
 
   // display current time in minutes: seconds
   if (startTime) {
     var now = new Date().getTime()
     var timeDiff = (now - startTime) / 1000 // seconds
     var timeStr = Math.floor(timeDiff / 60) + ':' + Math.floor((timeDiff % 60))
-    console.log('time string min:sec = ' + timeStr)
+    timeStr = 'min:sec = ' + timeStr
+    console.log('time string ' + timeStr)
     document.getElementById('timeDisplay').textContent = timeStr
   }
   /*
