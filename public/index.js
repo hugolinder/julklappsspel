@@ -208,8 +208,8 @@ function updateView () {
   console.log('updating view')
   // reset buttons
   diceBtn.textContent = 'Roll the Dice'
-  playerBtn.textContent = 'Create player'
-  giftBtn.textContent = 'Add gift'
+  playerBtn.textContent = 'Create player token'
+  giftBtn.textContent = 'Add gift token'
   timeBtn.textContent = 'Restart timer'
 
   // display current time in minutes: seconds
