@@ -175,28 +175,32 @@ function createToken (template) {
   return token
 }
 
-var playerBtn = document.getElementById('playerBtn')
-playerBtn.addEventListener('click', (event) => {
+function addPlayer () {
   // in order to have consistent ID, the creation occurs in view
   var name = document.getElementById('name').value
   console.log('adding player ' + name)
-  playerBtn.textContent = name + '...'
+  // playerBtn.textContent = name + '...'
   command.tokens.push({
     textContent: name,
     classList: ['player']
   })
-})
+}
 
-var giftBtn = document.getElementById('giftBtn')
-giftBtn.addEventListener('click', () => {
+function addGift () {
   console.log('adding gift')
   var label = document.getElementById('gift').value
   command.tokens.push({
     textContent: label,
     classList: ['gift']
   })
-  giftBtn.textContent = label + '...'
-})
+}
+
+// var playerBtn = document.getElementById('playerBtn')
+// playerBtn.addEventListener('click', addPlayer)
+document.getElementById('name').onchange = addPlayer
+
+// var giftBtn = document.getElementById('giftBtn')
+document.getElementById('gift').onchange = addGift
 
 var timeBtn = document.getElementById('timeBtn')
 timeBtn.addEventListener('click', () => {
@@ -210,8 +214,8 @@ function updateView () {
   console.log('updating view')
   // reset buttons
   diceBtn.textContent = 'Roll the Dice'
-  playerBtn.textContent = 'Create player token'
-  giftBtn.textContent = 'Add gift token'
+  // playerBtn.textContent = 'Create player token'
+  // giftBtn.textContent = 'Add gift token'
   timeBtn.textContent = 'Restart timer'
 
   // display current time in minutes: seconds
@@ -251,8 +255,9 @@ function updateView () {
 var timerId = setInterval(function () {
   commandServer()
   updateView()
-}, document.getElementById('interval').value)
+}, 1000)
 
+/*
 // adjust speed
 document.getElementById('submitInterval').addEventListener('click', () => {
   clearInterval(timerId)
@@ -261,3 +266,4 @@ document.getElementById('submitInterval').addEventListener('click', () => {
     updateView()
   }, document.getElementById('interval').value)
 })
+*/
