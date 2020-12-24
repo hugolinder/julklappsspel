@@ -178,6 +178,7 @@ function createToken (template) {
 function addPlayer () {
   // in order to have consistent ID, the creation occurs in view
   var name = document.getElementById('name').value
+  document.getElementById('name').value = null
   console.log('adding player ' + name)
   // playerBtn.textContent = name + '...'
   command.tokens.push({
@@ -189,6 +190,7 @@ function addPlayer () {
 function addGift () {
   console.log('adding gift')
   var label = document.getElementById('gift').value
+  document.getElementById('gift').value = null
   command.tokens.push({
     textContent: label,
     classList: ['gift']
