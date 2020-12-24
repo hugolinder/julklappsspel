@@ -1,9 +1,6 @@
-.player {
-  background-color: red;
-  border: 0.3em solid LightGreen;
-  border-radius: 2em;
-  color: white;
-  padding: 1em;
+.draggable {
+  cursor: move;
+  position: absolute;
 }
 
 .gift {
@@ -14,7 +11,22 @@
   padding: 0.5em;
 }
 
-.draggable {
-  cursor: move;
-  position: absolute;
+html, body {
+  background: #1e5799; /* Old browsers */
+background: -moz-linear-gradient(top,  #1e5799 0%, #7db9e8 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #1e5799 0%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #1e5799 0%,#7db9e8 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #1e5799 0%,#7db9e8 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #1e5799 0%,#7db9e8 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+min-height:100%;
+}
+
+.player {
+  background-color: red;
+  border: 0.3em solid LightGreen;
+  border-radius: 2em;
+  color: white;
+  padding: 1em;
 }
