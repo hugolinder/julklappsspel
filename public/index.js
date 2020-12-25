@@ -3,6 +3,7 @@ var command = {
   tokens: []
 }
 var startTime
+var numDice = 0
 function commandServer () {
   console.log('sending command to server')
   console.log(command)
@@ -35,8 +36,23 @@ function commandServer () {
           token.style.top = template.y
         }
       })
-      if (json.model.diceValues.length > 0) {
-        document.getElementById('diceDisplay').textContent = 'Dice roll ' + json.model.diceValues.length + ' is ' + json.model.diceValues.pop()
+      let dice = json.model.diceValues
+      if (dice.length > numDice) { // the dice has been rolled
+        console.log('A new dice roll!')
+        numDice = dice.length
+        let diceValue = dice[numDice - 1]
+        let diceDisplay = document.getElementById('diceDisplay')
+        diceDisplay.textContent = 'Dice roll ' + numDice + ' is ' + diceValue
+        // lucky roll signal
+        if (diceValue === 6) {
+          console.log('lucky roll')
+          // sound from zapsplat.com
+          // my recording
+          diceDisplay.style.backgroundColor = 'lime'
+        } else {
+          console.log('unlucky roll')
+          diceDisplay.style.backgroundColor = 'white'
+        }
       }
       startTime = json.model.time
     })
@@ -50,7 +66,7 @@ var diceBtn = document.getElementById('diceBtn')
 diceBtn.addEventListener('click', () => {
   console.log('rolling the dice')
   command.rollDice = true
-  var audio = new Audio('dice.mp3')
+  let audio = new Audio('dice.mp3')
   audio.play()
   diceBtn.textContent = 'Rolling...'
 })
@@ -95,7 +111,7 @@ function dragElement (elmnt) {
   function move (e) {
     e = e || window.event
     e.preventDefault()
-    var newX, newY
+    let newX, newY
     if (elmnt.isMoving) {
       console.log('event type ' + e.type)
       if (e.type === 'mousemove') {
