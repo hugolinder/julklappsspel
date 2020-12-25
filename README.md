@@ -29,5 +29,4 @@ Bonus:
 - output game results as text (who got what gift) so that we can post and give the gifts.
 
 Credits:
-Sleigh bells and chime sound effects from zapsplat.com
 Snow animation by pajasevi

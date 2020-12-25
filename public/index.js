@@ -40,18 +40,18 @@ function commandServer () {
       if (dice.length > numDice) { // the dice has been rolled
         console.log('A new dice roll!')
         numDice = dice.length
-        let diceValue = dice[numDice - 1]
-        let diceDisplay = document.getElementById('diceDisplay')
+        const diceValue = dice[numDice - 1]
+        const diceDisplay = document.getElementById('diceDisplay')
         diceDisplay.textContent = 'Dice roll ' + numDice + ' is ' + diceValue
         // lucky roll signal
         if (diceValue === 6) {
           console.log('lucky roll')
-          // sound from zapsplat.com
-          // my recording
-          diceDisplay.style.backgroundColor = 'lime'
+          diceDisplay.style.backgroundColor = 'LightGreen'
+          diceDisplay.style.color = 'red'
         } else {
           console.log('unlucky roll')
           diceDisplay.style.backgroundColor = 'white'
+          diceDisplay.style.color = 'black'
         }
       }
       startTime = json.model.time
@@ -66,7 +66,7 @@ var diceBtn = document.getElementById('diceBtn')
 diceBtn.addEventListener('click', () => {
   console.log('rolling the dice')
   command.rollDice = true
-  let audio = new Audio('dice.mp3')
+  const audio = new Audio('dice.mp3')
   audio.play()
   diceBtn.textContent = 'Rolling...'
 })
@@ -137,11 +137,7 @@ function dragElement (elmnt) {
     preX = newX
     preY = newY
     var message = 'preX=' + preX + ', newX=' + newX + ', dX= ' + dX + ', preY= ' + preY + ', newY=' + newY + ', dY=' + dY
-    if (e.type === 'mousemove') {
-      console.log(message)
-    } else {
-      // document.getElementById('myConsole').textContent = message
-    }
+    console.log(message)
 
     // set the element's new position:
     // changed from pixels to percent of window dimensions
@@ -191,6 +187,8 @@ function createToken (template) {
   return token
 }
 
+// Buttons
+
 function addPlayer () {
   // in order to have consistent ID, the creation occurs in view
   var name = document.getElementById('name').value
@@ -213,11 +211,7 @@ function addGift () {
   })
 }
 
-// var playerBtn = document.getElementById('playerBtn')
-// playerBtn.addEventListener('click', addPlayer)
 document.getElementById('name').onchange = addPlayer
-
-// var giftBtn = document.getElementById('giftBtn')
 document.getElementById('gift').onchange = addGift
 
 var timeBtn = document.getElementById('timeBtn')
@@ -232,8 +226,6 @@ function updateView () {
   console.log('updating view')
   // reset buttons
   diceBtn.textContent = 'Roll the Dice'
-  // playerBtn.textContent = 'Create player token'
-  // giftBtn.textContent = 'Add gift token'
   timeBtn.textContent = 'Restart timer'
 
   // display current time in minutes: seconds

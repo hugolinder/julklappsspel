@@ -1,5 +1,6 @@
 node_modules/
 *.jpg
+*.mp3
 
 
 ## Ignore Visual Studio temporary files, build results, and
