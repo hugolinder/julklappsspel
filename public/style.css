@@ -1,3 +1,10 @@
+.backgroundDiv {
+  background-color: white;
+  border: 5em solid white;
+  border-radius: 5em;
+  width: 25em;
+}
+
 .draggable {
   cursor: move;
   position: absolute;
