@@ -43,6 +43,8 @@ function commandServer () {
         const diceValue = dice[numDice - 1]
         const diceDisplay = document.getElementById('diceDisplay')
         diceDisplay.textContent = 'Dice roll ' + numDice + ' is ' + diceValue
+        const diceSymbols = ['\u2680', '\u2681', '\u2682', '\u2683', '\u2684', '\u2685']
+        document.getElementById('diceSymbol').textContent = diceSymbols[diceValue - 1]
         // lucky roll signal
         if (diceValue === 6) {
           console.log('lucky roll')
